@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.1",
+	"FriendlyName": "COMODO Sync",
+	"Description": "Part of the COMODO ecosystem. Allows simple OPC UA connections and operations",
+	"Category": "Connection",
+	"CreatedBy": "Khevalir",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"EnabledByDefault": true,
+	"IsBetaVersion": true,
+	"CanContainContent": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "COMODO_Sync",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
