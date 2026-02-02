@@ -18,7 +18,7 @@
 		{
 			"Name": "COMODO_Sync",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "PreDefault"
 		}
 	]
 }
