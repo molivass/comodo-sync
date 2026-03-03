@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Hereda: AActor Clase principal del plugin. Contiene todas las funciones de conexión a servidores OPC UA, lectura y escritura de nodos, y gestión de suscripciones. Actúa a modo de UBlueprintFunctionLibrary, pero se def..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>AOPCUAClient &mdash; documentación de COMODO_Sync - </title>
+
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/godot/css/main.css?v=a64a1efd" />
+
+  
+    <link rel="shortcut icon" href="/_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e2bb6099"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/godot/js/main.js?v=b4d97202"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc" />
+  
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+    <link rel="next" title="MonitoredItem" href="../struct/FMonitoredItem.html" />
+    <link rel="prev" title="Documentación de COMODO Sync" href="../index.html" />
+<meta name="doc_version" content="" />
+<meta name="doc_is_latest" content="" />
+<meta name="doc_pagename" content="class/AOPCUAClient" />
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="/_static/godot/img/docs_logo.svg" class="logo" alt="Logotipo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Clases</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AOPCUAClient</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#descripcion">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#propiedades">Propiedades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metodos">Métodos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#delegates">Delegates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#descripciones-de-propiedades">Descripciones de Propiedades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#descripciones-de-metodos">Descripciones de Métodos</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Estructuras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../struct/FMonitoredItem.html">MonitoredItem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guía de uso</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usage/blueprints.html">Uso con Blueprints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/cpp.html">Uso con C++</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">COMODO_Sync</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">AOPCUAClient</li>
+	</ul>
+</li>
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/class/AOPCUAClient.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+	</ul>
+
+	
+</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <section id="aopcuaclient">
+<span id="doc-class-opcuaclient"></span><h1>AOPCUAClient<a class="headerlink" href="#aopcuaclient" title="Link to this heading"></a></h1>
+<p><strong>Hereda</strong>: <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/AActor">AActor</a></p>
+<p>Clase principal del plugin.</p>
+<section class="classref-introduction-group" id="descripcion">
+<h2>Descripción<a class="headerlink" href="#descripcion" title="Link to this heading"></a></h2>
+<p>Contiene todas las funciones de conexión a servidores OPC UA, lectura y escritura de nodos, y gestión de suscripciones.</p>
+<p>Actúa a modo de <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UBlueprintFunctionLibrary">UBlueprintFunctionLibrary</a>, pero se define como <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/AActor">AActor</a> para poder pasar el objeto como contexto en las funciones, ya que la librería <a class="reference external" href="https://open62541.org/">open62541</a> requiere de un contexto para monitorizar.
+Por defecto Unreal pasa <code class="docutils literal notranslate"><span class="pre">self</span></code> como contexto en blueprints, por lo que no afecta a la forma de uso.</p>
+</section>
+<section class="classref-reftable-group" id="propiedades">
+<h2>Propiedades<a class="headerlink" href="#propiedades" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 58.3%" />
+<col style="width: 16.7%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-property-isconnected"><span class="std std-ref">bIsConnected</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://open62541.org/doc/master/client.html">UA_Client</a> *</p></td>
+<td><p><a class="reference internal" href="#client-property-client"><span class="std std-ref">Client</span></a></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/map-containers-in-unreal-engine">TMap</a>&lt;<a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>, <a class="reference internal" href="../struct/FMonitoredItem.html#doc-struct-fmonitoreditem"><span class="std std-ref">FMonitoredItem</span></a>&gt;</p></td>
+<td><p><a class="reference internal" href="#client-property-monitoreditems"><span class="std std-ref">MonitoredItems</span></a></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="classref-reftable-group" id="metodos">
+<h2>Métodos<a class="headerlink" href="#metodos" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14.3%" />
+<col style="width: 85.7%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><abbr title="Sin valor de retorno">void</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-constructor"><span class="std std-ref">AOPCUAClient</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="Sin valor de retorno">void</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-beginplay"><span class="std std-ref">BeginPlay</span></a>() <abbr title="Función que puede ser sobreescrita en clases hijas">virtual</abbr> <abbr title="Función que sobreescribe una función virtual de la clase padre">override</abbr></p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Sin valor de retorno">void</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-endplay"><span class="std std-ref">EndPlay</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="EndReasonType">EEndPlayReason::Type</a> EndPlayReason) <abbr title="Función que puede ser sobreescrita en clases hijas">virtual</abbr> <abbr title="Función que sobreescribe una función virtual de la clase padre">override</abbr></p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="Sin valor de retorno">void</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-tick"><span class="std std-ref">Tick</span></a>(<abbr title="Valor de punto flotante. Precisión simple">float</abbr> DeltaTime) <abbr title="Función que puede ser sobreescrita en clases hijas">virtual</abbr> <abbr title="Función que sobreescribe una función virtual de la clase padre">override</abbr></p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-connectanon"><span class="std std-ref">ConnectAnon</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> URL)</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-connectuser"><span class="std std-ref">ConnectUser</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> URL, <abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> Username, <abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> Password)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Sin valor de retorno">void</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-disconnect"><span class="std std-ref">Disconnect</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-isconnected"><span class="std std-ref">IsConnected</span></a>()</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-readnodevalue"><span class="std std-ref">ReadNodeValue</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Entero de 32 bits con signo">int32</abbr> &amp; OutValue)</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p><a class="reference internal" href="#client-function-execreadnodevalue"><span class="std std-ref">execReadNodeValue</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-readnodevalueinternal"><span class="std std-ref">ReadNodeValueInternal</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> OutValue, <a class="reference external" href="FProperty">FProperty*</a> OutputProperty)</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-writenodevalue"><span class="std std-ref">WriteNodeValue</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Entero de 32 bits con signo">int32</abbr> InValue)</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><a class="reference internal" href="#client-function-execwritenodevalue"><span class="std std-ref">execWriteNodeValue</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-writenodevalueinternal"><span class="std std-ref">WriteNodeValueInternal</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> InValue, <a class="reference external" href="FProperty">FProperty*</a> InputProperty)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-startmonitoringnode"><span class="std std-ref">StartMonitoringNode</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Valor de punto flotante. Precisión simple">float</abbr> SamplingInterval, <abbr title="Entero de 32 bits con signo">int32</abbr>&amp; VariableToUpdate, <a class="reference internal" href="#client-delegate-fopcuaonvaluechanged"><span class="std std-ref">FOPCUAOnValueChanged</span></a> Callback)</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p><a class="reference internal" href="#client-function-execstartmonitoringnode"><span class="std std-ref">execStartMonitoringNode</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-startmonitoringnodeinternal"><span class="std std-ref">StartMonitoringNodeInternal</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Valor de punto flotante. Precisión simple">float</abbr> SamplingInterval, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> InValue, <a class="reference external" href="FProperty">FProperty*</a> InputProperty, <a class="reference internal" href="#client-delegate-fopcuaonvaluechanged"><span class="std std-ref">FOPCUAOnValueChanged</span></a> Callback)</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="Valor booleano, verdadero o falso">bool</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-stopmonitoringnode"><span class="std std-ref">StopMonitoringNode</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Sin valor de retorno">void</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-stopallmonitoring"><span class="std std-ref">StopAllMonitoring</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://open62541.org/doc/master/types.html#generic-type-handling">UA_DataType</a>*</p></td>
+<td><p><a class="reference internal" href="#client-function-getnodedatatype"><span class="std std-ref">GetNodeDataType</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace) <abbr title="No modifica ninguna de las variables miembro de la instancia">const</abbr></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://open62541.org/doc/master/types.html#nodeid">UA_NodeId</a></p></td>
+<td><p><a class="reference internal" href="#client-function-getnodeid"><span class="std std-ref">GetNodeId</span></a>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>&amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace) <abbr title="No modifica ninguna de las variables miembro de la instancia">const</abbr></p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="Sin valor de retorno">void</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-datachangenotificationcallback"><span class="std std-ref">DataChangeNotificationCallback</span></a>(<a class="reference external" href="https://open62541.org/doc/master/client.html">UA_Client</a>* client, <a class="reference external" href="https://open62541.org/doc/master/types.html#uint32">UA_UInt32</a> subId, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> subContext, <a class="reference external" href="https://open62541.org/doc/master/types.html#uint32">UA_UInt32</a> monId, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> monContext, <a class="reference external" href="https://open62541.org/doc/master/types.html#datavalue">UA_DataValue</a>* value) <abbr title="Función que pertenece a la clase en lugar de a una instancia">static</abbr> <abbr title="Convención de llamada estándar de C">__cdecl</abbr></p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="Sin valor de retorno">void</abbr></p></td>
+<td><p><a class="reference internal" href="#client-function-processclintevents"><span class="std std-ref">ProcessClientEvents</span></a>()</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="classref-section-separator"></section>
+<section class="classref-descriptions-group" id="delegates">
+<h2>Delegates<a class="headerlink" href="#delegates" title="Link to this heading"></a></h2>
+<p class="classref-signal" id="client-delegate-fopcuaonvaluechanged">Dynamic <strong>FOPCUAOnValueChanged</strong></p>
+<p>Delegate dinámico simple.</p>
+<p>Ejecuta el evento vinculado cada vez que recibe un cambio de valor de un nodo monitorizado.
+Ver <a class="reference internal" href="#client-function-datachangenotificationcallback"><span class="std std-ref">DataChangeNotificationCallback</span></a> para más detalles.</p>
+<hr class="classref-section-separator"></section>
+<section class="classref-descriptions-group" id="descripciones-de-propiedades">
+<h2>Descripciones de Propiedades<a class="headerlink" href="#descripciones-de-propiedades" title="Link to this heading"></a></h2>
+<p class="classref-property" id="client-property-isconnected"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>bIsConnected</strong> = <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Devuelve si el cliente está conectado a un servidor o no.
+<a class="reference internal" href="#client-property-client"><span class="std std-ref">Client</span></a> debe estar inicializado para poder conectarse.</p>
+<hr class="classref-item-separator"><p class="classref-property" id="client-property-client"><a class="reference external" href="https://open62541.org/doc/master/client.html">UA_Client</a> * <strong>Client</strong> = <code class="docutils literal notranslate"><span class="pre">nullptr</span></code></p>
+<p>Puntero al cliente de <a class="reference external" href="https://open62541.org/">open62541</a>.</p>
+<p>Se inicializa al conectar a un servidor con <a class="reference internal" href="#client-function-connectanon"><span class="std std-ref">ConnectAnon</span></a> o <a class="reference internal" href="#client-function-connectuser"><span class="std std-ref">ConnectUser</span></a>, y se destruye al desconectarse con <a class="reference internal" href="#client-function-disconnect"><span class="std std-ref">Disconnect</span></a>.</p>
+<hr class="classref-item-separator"><p class="classref-property" id="client-property-monitoreditems"><a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/map-containers-in-unreal-engine">TMap</a>&lt;<a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a>, <a class="reference internal" href="../struct/FMonitoredItem.html#doc-struct-fmonitoreditem"><span class="std std-ref">FMonitoredItem</span></a>&gt; <strong>MonitoredItems</strong> = <code class="docutils literal notranslate"><span class="pre">{}</span></code></p>
+<p>Mapa que almacena los nodos que se están monitorizando. Un nodo monitorizado envía notificaciones al cambiar de valor, lo que permite reaccionar a esos cambios en tiempo real.</p>
+<p>La clave es es un <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> con el formato <code class="docutils literal notranslate"><span class="pre">NodeIdString:Namespace</span></code></p>
+<p>El valor es una estructura <a class="reference internal" href="../struct/FMonitoredItem.html#doc-struct-fmonitoreditem"><span class="std std-ref">FMonitoredItem</span></a> que contiene los datos referentes al nodo monitorizado.
+Ver la definicón de la estructura para más detalles.</p>
+<hr class="classref-section-separator"></section>
+<section class="classref-descriptions-group" id="descripciones-de-metodos">
+<h2>Descripciones de Métodos<a class="headerlink" href="#descripciones-de-metodos" title="Link to this heading"></a></h2>
+<p class="classref-method" id="client-function-constructor"><abbr title="Sin valor de retorno">void</abbr> <strong>AOPCUAClient</strong>()</p>
+<p>Constructor de la clase.</p>
+<p>Establece <a class="reference internal" href="#client-property-isconnected"><span class="std std-ref">bIsConnected</span></a> a <code class="docutils literal notranslate"><span class="pre">false</span></code> y <a class="reference internal" href="#client-property-client"><span class="std std-ref">Client</span></a> a <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>.</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-beginplay"><abbr title="Sin valor de retorno">void</abbr> <strong>BeginPlay</strong>() <abbr title="Función que puede ser sobreescrita en clases hijas">virtual</abbr> <abbr title="Función que sobreescribe una función virtual de la clase padre">override</abbr></p>
+<p>Función llamada al iniciar el juego o al spawnear el actor.</p>
+<p>Simplemente llama al <code class="docutils literal notranslate"><span class="pre">Super::BeginPlay()</span></code>.</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-endplay"><abbr title="Sin valor de retorno">void</abbr> <strong>EndPlay</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="EndReasonType">EEndPlayReason::Type</a> EndPlayReason) <abbr title="Función que puede ser sobreescrita en clases hijas">virtual</abbr> <abbr title="Función que sobreescribe una función virtual de la clase padre">override</abbr></p>
+<p>Función llamada al finalizar el juego o al destruir el actor.</p>
+<p>Llama a <a class="reference internal" href="#client-function-disconnect"><span class="std std-ref">Disconnect</span></a> para asegurarse de que el cliente se desconecta del servidor, y se eliminan las suscripciones.
+Luego llama al <code class="docutils literal notranslate"><span class="pre">Super::EndPlay(EndPlayReason)</span></code>.</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-tick"><abbr title="Sin valor de retorno">void</abbr> <strong>Tick</strong>(<abbr title="Valor de punto flotante. Precisión simple">float</abbr> DeltaTime) <abbr title="Función que puede ser sobreescrita en clases hijas">virtual</abbr> <abbr title="Función que sobreescribe una función virtual de la clase padre">override</abbr></p>
+<p>Función llamada cada frame.</p>
+<p>Llama al <code class="docutils literal notranslate"><span class="pre">Super::Tick(DeltaTime)</span></code>.</p>
+<p>Si <a class="reference internal" href="#client-function-isconnected"><span class="std std-ref">IsConnected</span></a> devuelve <code class="docutils literal notranslate"><span class="pre">true</span></code>, es decir, si el cliente está conectado a un servidor, entonces ejecuta <a class="reference internal" href="#client-function-processclintevents"><span class="std std-ref">ProcessClientEvents</span></a>.</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-connectanon"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>ConnectAnon</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> URL)</p>
+<p>Conecta a un servidor OPC UA de forma anónima, sin credenciales de usuario.</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>El servidor al que se conecta debe permitir conexiones anónimas, de lo contrario la conexión fallará.</p>
+</div>
+<ul class="simple">
+<li><p>URL: Es la dirección del servidor, en el formato <code class="docutils literal notranslate"><span class="pre">opc.tcp://IP:PUERTO</span></code>. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">opc.tcp://192.168.1.100:4840</span></code>.</p></li>
+</ul>
+<p>Establece <a class="reference internal" href="#client-property-client"><span class="std std-ref">Client</span></a> con un nuevo cliente de <a class="reference external" href="https://open62541.org/">open62541</a>, e intenta conectar al servidor con las credenciales proporcionadas.
+Si se conecta correctamente, establece <a class="reference internal" href="#client-property-isconnected"><span class="std std-ref">bIsConnected</span></a> a <code class="docutils literal notranslate"><span class="pre">true</span></code>. Si ocurre un error, destruye el cliente, estableciendo <a class="reference internal" href="#client-property-client"><span class="std std-ref">Client</span></a> a <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>.
+Devuelve <code class="docutils literal notranslate"><span class="pre">true</span></code> si la conexión se establece correctamente, o <code class="docutils literal notranslate"><span class="pre">false</span></code> si ocurre un error.</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-connectuser"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>ConnectUser</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> URL, <abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> Username, <abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> Password)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-disconnect"><abbr title="Sin valor de retorno">void</abbr> <strong>Disconnect</strong>()</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-isconnected"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>IsConnected</strong>()</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-readnodevalue"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>ReadNodeValue</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Entero de 32 bits con signo">int32</abbr> &amp; OutValue)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-execreadnodevalue"><strong>execReadNodeValue</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Entero de 32 bits con signo">int32</abbr> &amp; OutValue)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-readnodevalueinternal"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>ReadNodeValueInternal</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> OutValue, <a class="reference external" href="FProperty">FProperty*</a> OutputProperty)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-writenodevalue"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>WriteNodeValue</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Entero de 32 bits con signo">int32</abbr> InValue)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-execwritenodevalue"><strong>execWriteNodeValue</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Entero de 32 bits con signo">int32</abbr> InValue)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-writenodevalueinternal"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>WriteNodeValueInternal</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> InValue, <a class="reference external" href="FProperty">FProperty*</a> InputProperty)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-startmonitoringnode"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>StartMonitoringNode</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Valor de punto flotante. Precisión simple">float</abbr> SamplingInterval, <abbr title="Entero de 32 bits con signo">int32</abbr> &amp; VariableToUpdate, <a class="reference internal" href="#client-delegate-fopcuaonvaluechanged"><span class="std std-ref">FOPCUAOnValueChanged</span></a> Callback)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-execstartmonitoringnode"><strong>execStartMonitoringNode</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Valor de punto flotante. Precisión simple">float</abbr> SamplingInterval, <abbr title="Entero de 32 bits con signo">int32</abbr> &amp; VariableToUpdate, <a class="reference internal" href="#client-delegate-fopcuaonvaluechanged"><span class="std std-ref">FOPCUAOnValueChanged</span></a> Callback)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-startmonitoringnodeinternal"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>StartMonitoringNodeInternal</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace, <abbr title="Valor de punto flotante. Precisión simple">float</abbr> SamplingInterval, <abbr title="Entero de 32 bits con signo">int32</abbr> &amp; VariableToUpdate, <a class="reference internal" href="#client-delegate-fopcuaonvaluechanged"><span class="std std-ref">FOPCUAOnValueChanged</span></a> Callback)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-stopmonitoringnode"><abbr title="Valor booleano, verdadero o falso">bool</abbr> <strong>StopMonitoringNode</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace)</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-stopallmonitoring"><abbr title="Sin valor de retorno">void</abbr> <strong>StopAllMonitoring</strong>()</p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-getnodedatatype"><a class="reference external" href="https://open62541.org/doc/master/types.html#generic-type-handling">UA_DataType</a> * <strong>GetNodeDataType</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace) <abbr title="No modifica ninguna de las variables miembro de la instancia">const</abbr></p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-getnodeid"><a class="reference external" href="https://open62541.org/doc/master/types.html#nodeid">UA_NodeId</a> <strong>GetNodeId</strong>(<abbr title="El parámetro no puede ser modificado dentro de la función">const</abbr> <a class="reference external" href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString">FString</a> &amp; NodeIdString, <abbr title="Entero de 32 bits con signo">int32</abbr> Namespace) <abbr title="No modifica ninguna de las variables miembro de la instancia">const</abbr></p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-datachangenotificationcallback"><abbr title="Sin valor de retorno">void</abbr> <strong>DataChangeNotificationCallback</strong>(<a class="reference external" href="https://open62541.org/doc/master/client.html">UA_Client</a> * client, <a class="reference external" href="https://open62541.org/doc/master/types.html#uint32">UA_UInt32</a> subId, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> subContext, <a class="reference external" href="https://open62541.org/doc/master/types.html#uint32">UA_UInt32</a> monId, <abbr title="Puntero a un valor de cualquier tipo">void*</abbr> monContext, <a class="reference external" href="https://open62541.org/doc/master/types.html#datavalue">UA_DataValue</a> * value) <abbr title="Función que pertenece a la clase en lugar de a una instancia">static</abbr> <abbr title="Convención de llamada estándar de C">__cdecl</abbr></p>
+<hr class="classref-item-separator"><p class="classref-method" id="client-function-processclintevents"><abbr title="Sin valor de retorno">void</abbr> <strong>ProcessClientEvents</strong>()</p>
+</section>
+</section>
+
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Documentación de COMODO Sync" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="../struct/FMonitoredItem.html" class="btn btn-neutral float-right" title="MonitoredItem" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2026, Manuel Olivas.</p>
+  </div>
+
+  
+    
+    
+    
+    Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://gitlab.com/opsocket/sphinx_godot.git">tema</a>
+    provided by <a href="https://www.opsocket.com">opsocket</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versiones</span>
+    v: 
+    <span class="fa fa-caret-down"></span>
+  </span>
+
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+        <dd><a href="#">de</a></dd>
+      
+        <dd><a href="#">es</a></dd>
+      
+        <dd><a href="#">fr</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>Tags</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl>
+
+    <hr>
+    <small>
+      <span>Made with ❤️‍🔥 by people like you!</span>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

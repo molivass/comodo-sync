@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 260 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <rect id="Mesa-de-trabajo1" serif:id="Mesa de trabajo1" x="0" y="0" width="260" height="60" style="fill:none;"/>
+    <g id="Mesa-de-trabajo11" serif:id="Mesa de trabajo1">
+        <g transform="matrix(0.690443,0,0,0.690443,-6.146135,-4.700952)">
+            <g transform="matrix(50,0,0,50,270.613677,49.3674)">
+            </g>
+            <text x="40.072px" y="49.367px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">COMODO</text>
+        </g>
+        <g transform="matrix(0.690443,0,0,0.690443,114.767854,17.419205)">
+            <g transform="matrix(50,0,0,50,151.228911,49.3674)">
+            </g>
+            <text x="40.072px" y="49.367px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">Sync</text>
+        </g>
+        <path d="M21.521,33.224L142.435,33.224" style="fill:none;stroke:rgb(255,0,0);stroke-width:1.25px;"/>
+        <g transform="matrix(1,0,0,1,0,2.767366)">
+            <path d="M21.521,33.224L142.435,33.224" style="fill:none;stroke:rgb(255,0,0);stroke-width:0.83px;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,0,5.439311)">
+            <path d="M21.521,33.224L142.435,33.224" style="fill:none;stroke:rgb(255,0,0);stroke-width:0.42px;"/>
+        </g>
+    </g>
+</svg>
