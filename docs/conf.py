@@ -9,6 +9,7 @@
 project = 'COMODO_Sync'
 copyright = '2026, Manuel Olivas'
 author = 'Manuel Olivas'
+version = '0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
