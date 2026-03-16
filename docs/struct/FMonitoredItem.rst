@@ -1,7 +1,7 @@
 .. _doc_struct_fmonitoreditem:
 
 FMonitoredItem
-=============
+===============
 
 .. rst-class:: classref-introduction-group
 
@@ -30,7 +30,7 @@ Propiedades
         - ``nullptr``
     *   - `FString`_
         - :ref:`NodeIdString <fmonitoreditem-property-nodeidstring>`
-        - `""`
+        - ``""``
     *   - |int32|
         - :ref:`Namespace <fmonitoreditem-property-namespace>`
         - ``0``
@@ -39,7 +39,7 @@ Propiedades
         - 
     *   - `FName`_
         - :ref:`VarName <fmonitoreditem-property-varname>`
-        - `""`
+        - ``""``
     *   - :ref:`FOPCUAOnValueChanged <client-delegate-fopcuaonvaluechanged>`
         - :ref:`Callback <fmonitoreditem-property-callback>`
         - 
@@ -133,7 +133,7 @@ El tipo de datos que se espera y se recibe en las notificaciones de cambio de va
 
 .. rst-class:: classref-property
 
-`FString`_ **NodeIdString** = `""`
+`FString`_ **NodeIdString** = ``""``
 
 Nombre del nodo del servidor OPC UA que se está monitorizando.
 
@@ -176,11 +176,11 @@ Puntero a la variable de Unreal. Se actualiza con el valor del nodo monitorizado
 
 .. rst-class:: classref-property
 
-`FName` **VarName** = `""`
+`FName` **VarName** = ``""``
 
 Nombre de la variable de Unreal almacenada en :ref:`VarRef <fmonitoreditem-property-varref>`.
 
-.. deprecated::
+.. deprecated:: 0.1
     
     Este valor ya no se usa y se eliminará en futuras versiones.
     La variable de Unreal se almacena directamente en :ref:`VarRef <fmonitoreditem-property-varref>`.
@@ -220,3 +220,15 @@ Descripciones de Métodos
 Constructor de la estructura.
 
 Establece todos los miembros a sus valores por defecto, excepto :ref:`VarRef <fmonitoreditem-property-varref>`, que se inicializa con el puntero pasado en el parámetro ``InRef``.
+
+
+.. _UA_DataType: https://open62541.org/doc/master/types.html#generic-type-handling
+.. _FString: https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FString
+.. _FName: https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/FName
+.. _UA_Client_MonitoredItems_createDataChange: https://open62541.org/doc/master/client.html#monitoreditems
+.. _UA_Client_Subscriptions_create: https://open62541.org/doc/master/client.html#subscriptions
+
+.. |int32| replace::  :abbr:`int32 (Entero de 32 bits con signo)`
+.. |uint32| replace::  :abbr:`uint32 (Entero de 32 bits sin signo)`
+.. |vvoid| replace:: :abbr:`void* (Puntero a un valor de cualquier tipo)`
+.. |void| replace::  :abbr:`void (Sin valor de retorno)`

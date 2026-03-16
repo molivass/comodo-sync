@@ -257,7 +257,7 @@ Conecta a un servidor OPC UA de forma anónima, sin credenciales de usuario.
 
 * URL: Es la dirección del servidor, en el formato ``opc.tcp://IP:PUERTO``. Por ejemplo, ``opc.tcp://192.168.1.100:4840``.
 
-Establece :ref:`Client <client-property-client>` con un nuevo cliente de `open62541`_, e intenta conectar al servidor con las credenciales proporcionadas.
+Establece :ref:`Client <client-property-client>` con un nuevo cliente de `open62541`_, e intenta conectar al servidor de forma anónima.
 Si se conecta correctamente, establece :ref:`bIsConnected <client-property-isconnected>` a ``true``. Si ocurre un error, destruye el cliente, estableciendo :ref:`Client <client-property-client>` a ``nullptr``.
 Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocurre un error.
 
@@ -272,6 +272,20 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 |bool| **ConnectUser**\(|vconst| `FString`_ URL, |vconst| `FString`_ Username, |vconst| `FString`_ Password)
 
+Conecta a un servidor OPC UA con usuario y contraseña.
+
+.. error::
+    Actualmente no funciona y siempre retornará false
+
+* URL: Es la dirección del servidor, en el formato ``opc.tcp://IP:PUERTO``. Por ejemplo, ``opc.tcp://192.168.1.100:4840``.
+* Username: El nombre de usuario definido en el servidor
+* Password: Contraseña asociada al usuario.
+
+Establece :ref:`Client <client-property-client>` con un nuevo cliente de `open62541`_, e intenta conectar al servidor con las credenciales proporcionadas.
+Si se conecta correctamente, establece :ref:`bIsConnected <client-property-isconnected>` a ``true``. Si ocurre un error, destruye el cliente, estableciendo :ref:`Client <client-property-client>` a ``nullptr``.
+
+Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocurre un error.
+
 
 .. raw:: html
     
@@ -283,6 +297,13 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 .. rst-class:: classref-method
 
 |void| **Disconnect**\()
+
+Desconecta el cliente del servidor.
+
+Llama a :ref:`StopAllMonitoring <client-function-stopallmonitoring>` para eliminar las posibles suscripciones,
+y se desconecta del servidor en caso de :ref:`Client <client-property-client>` estuviera definido.
+
+Establece :ref:`Client <client-property-client>` a ``null`` y :ref:`bIsConnected <client-property-isconnected>` a ``false``.
 
 
 .. raw:: html
@@ -296,6 +317,9 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 |bool| **IsConnected**\()
 
+Devuelve el estado de conexión al servidor.
+
+Devuelve ``true`` si :ref:`Client <client-property-client>` está definido, y :ref:`bIsConnected <client-property-isconnected>` es ``true`` 
 
 .. raw:: html
     
@@ -306,7 +330,16 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-|bool| **ReadNodeValue**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |int32| & OutValue)
+|bool| **ReadNodeValue**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |int32| & OutValue)
+
+Definición para blueprints de :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`
+
+.. important::
+    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execReadNodeValue <client-function-execreadnodevalue>`,
+    que cambia el tipo de OutValue y pasa los valores a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`.
+
+    En c++ llamar directamente a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>` con los parámetros necesarios.
+
 
 .. raw:: html
     
@@ -317,7 +350,16 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-**execReadNodeValue**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |int32| & OutValue)
+**execReadNodeValue**\()
+
+Ejecución interna de :ref:`ReadNodeValue <client-function-readnodevalue>`
+
+.. important::
+    La función se ejecuta directamente al llamar a :ref:`ReadNodeValue <client-function-readnodevalue>` desde Blueprints.
+    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`
+
+Revisa el stack para obtener la dirección de memoria de ``OutValue``, y su `FProperty`_, y se los pasa junto al resto de parámetros a
+:ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`
 
 
 .. raw:: html
@@ -329,8 +371,25 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-|bool| **ReadNodeValueInternal**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |vvoid| OutValue, `FProperty* <FProperty>`_ OutputProperty)
+|bool| **ReadNodeValueInternal**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |vvoid| OutValue, `FProperty* <FProperty>`_ OutputProperty)
 
+Lee el valor actual de un nodo definido en el servidor.
+
+* NodeIdString: El nombre del nodo en el servidor, del cual se quiere leer su valor
+* Namespace: El namespace en el que se encuentra el nodo en el servidor
+* OutValue: Pin de salida que devuelve el valor obtenido del servidor.
+* OutputProperty: Tipo de variable de OutValue. Usado internamente para hacer cast al pin de salida al tipo correspondiente.
+
+La función solo se ejecuta si existe una conexión con un servidor.
+
+Solicita el valor al servidor, hace un cast al tipo correspondiente, y lo devuelve por ``OutValue``.
+
+.. note::
+    Actualmente, el tipo de ``OutValue`` y del nodo del servidor deben coincidir exactamente.
+    Nótese que en Blueprints las variables de tipo ``float`` son de doble precisión, es decir, el nodo del servidor
+    ha de ser de tipo ``double`` o equivalente para poder comunicarse.   
+
+Devuelve ``true`` si se ha conseguido leer el nodo y ``OutValue`` retorna un valor, o ``false`` si ocurre un error, y ``OutValue`` es ``null``
 
 .. raw:: html
     
@@ -341,7 +400,15 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-|bool| **WriteNodeValue**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |int32| InValue)
+|bool| **WriteNodeValue**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |int32| InValue)
+
+Definición para blueprints de :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`
+
+.. important::
+    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execWriteNodeValue <client-function-execwritenodevalue>`,
+    que cambia el tipo de InValue y pasa los valores a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`.
+
+    En c++ llamar directamente a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>` con los parámetros necesarios.
 
 
 .. raw:: html
@@ -353,7 +420,16 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-**execWriteNodeValue**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |int32| InValue)
+**execWriteNodeValue**\()
+
+Ejecución interna de :ref:`WriteNodeValue <client-function-writenodevalue>`
+
+.. important::
+    La función se ejecuta directamente al llamar a :ref:`WriteNodeValue <client-function-writenodevalue>` desde Blueprints.
+    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`
+
+Revisa el stack para obtener la dirección de memoria de ``InValue``, y su `FProperty`_, y se los pasa junto al resto de parámetros a
+:ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`
 
 
 .. raw:: html
@@ -365,7 +441,25 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-|bool| **WriteNodeValueInternal**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |vvoid| InValue, `FProperty* <FProperty>`_ InputProperty)
+|bool| **WriteNodeValueInternal**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |vvoid| InValue, `FProperty* <FProperty>`_ InputProperty)
+
+Escribe el valor que se pasa como parámetro en un nodo del servidor.
+
+* NodeIdString: El nombre del nodo en el servidor, el cual se quiere cambiar de valor
+* Namespace: El namespace en el que se encuentra el nodo en el servidor
+* InValue: Valor al que se quiere establecer el nodo.
+* InputProperty: Tipo de variable de InValue. Usado internamente para hacer cast al pin de entrada al tipo correspondiente.
+
+La función solo se ejecuta si existe una conexión con un servidor.
+
+Hace cast del valor al tipo equivalente de OPC UA, e intenta escribirlo en el nodo.
+
+.. note::
+    Si el tipo de ``InValue`` no coincide con el tipo del nodo del servidor, la escritura fallará.
+    Nótese que en Blueprints las variables de tipo ``float`` son de doble precisión, es decir, el nodo del servidor
+    ha de ser de tipo ``double`` o equivalente para poder comunicarse.   
+
+Devuelve ``true`` si se ha escrito correctamente, o ``false`` si ocurre un error.
 
 
 .. raw:: html
@@ -377,7 +471,16 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-|bool| **StartMonitoringNode**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |float| SamplingInterval, |int32| & VariableToUpdate, :ref:`FOPCUAOnValueChanged <client-delegate-fopcuaonvaluechanged>` Callback)
+|bool| **StartMonitoringNode**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |float| SamplingInterval, |int32|\& VariableToUpdate, :ref:`FOPCUAOnValueChanged <client-delegate-fopcuaonvaluechanged>` Callback)
+
+Definición para blueprints de :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`
+
+.. important::
+    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execStartMonitoringNode <client-function-execstartmonitoringnode>`,
+    que cambia el tipo de VariableToUpdate y pasa los valores a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`.
+
+    En c++ llamar directamente a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>` con los parámetros necesarios.
+
 
 
 .. raw:: html
@@ -389,8 +492,16 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-**execStartMonitoringNode**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |float| SamplingInterval, |int32| & VariableToUpdate, :ref:`FOPCUAOnValueChanged <client-delegate-fopcuaonvaluechanged>` Callback)
+**execStartMonitoringNode**\()
 
+Ejecución interna de :ref:`StartMonitoringNode <client-function-startmonitoringnode>`
+
+.. important::
+    La función se ejecuta directamente al llamar a :ref:`StartMonitoringNode <client-function-startmonitoringnode>` desde Blueprints.
+    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`.
+
+Revisa el stack para obtener la dirección de memoria de ``VariableToUpdate``, y su `FProperty`_, y se los pasa junto al resto de parámetros a
+:ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`.
 
 .. raw:: html
     
@@ -401,8 +512,26 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-|bool| **StartMonitoringNodeInternal**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace, |float| SamplingInterval, |int32| & VariableToUpdate, :ref:`FOPCUAOnValueChanged <client-delegate-fopcuaonvaluechanged>` Callback)
+|bool| **StartMonitoringNodeInternal**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |float| SamplingInterval, |vvoid| InValue, `FProperty* <FProperty>`_ InputProperty, :ref:`FOPCUAOnValueChanged <client-delegate-fopcuaonvaluechanged>` Callback)
 
+Inicia la monitorización de un nodo del servidor. Actualiza la variable que se pasa como parámetro automáticamente cada vez que el nodo cambia de valor en el servidor.
+
+* NodeIdString: El nombre del nodo del servidor que se quiere monitorizar
+* Namespace: El namespace en el que se encuentra el nodo en el servidor
+* SamplingInterval: Intervalo en milisegundos entre peticiones al servidor para recibir actualizaciones.
+* InValue: Variable que la función actualizará cada vez que reciba un nuevo valor del servidor.
+* InputProperty: Tipo de variable de ``InValue``. Usado internamente para hacer cast al pin de entrada al tipo correspondiente.
+* Callback: Delegate que se ejecutará tras cambiar el valor de ``InValue``. Conectar el pin en Blueprints es opcional.
+
+La función solo se ejecuta si existe una conexión con un servidor.
+
+Si ya se está monitorizando el nodo, la función devuelve ``false`` con un mensaje indicativo.
+
+Crea una suscripción y comienza la monitorización del nodo. Se pasa la función :ref:`DataChangeNotificationCallback <client-function-datachangenotificationcallback>` al crear la monitorización,
+que se ejecuta cada vez que se recibe un cambio del servidor.
+Almacena la referencia a la monitorización en :ref:`MonitoredItems <client-property-monitoreditems>`
+
+La función devuelve ``true`` si se ha empezado a monitorizar el nodo correctamente.
 
 .. raw:: html
     
@@ -413,7 +542,18 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-|bool| **StopMonitoringNode**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace)
+|bool| **StopMonitoringNode**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace)
+
+Detiene la monitorización de un nodo.
+
+* NodeIdString: El nombre del nodo en el servidor, el cual se quiere dejar de monitorizar
+* Namespace: El namespace en el que se encuentra el nodo en el servidor
+
+Si el nodo no existe en :ref:`MonitoredItems <client-property-monitoreditems>`, la función devuelve ``false``.
+En caso contrario, intenta eliminar la monitorización del nodo. Si no hay más nodos monitorizados bajo la misma suscripción, también elimina la suscripción.
+Finalmente elimina la referencia a la monitorización de :ref:`MonitoredItems <client-property-monitoreditems>`.
+
+Devuelve ``true`` si se ha terminado la monitorización correctamente, o ``false`` si hubo un error.
 
 
 .. raw:: html
@@ -427,6 +567,7 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 |void| **StopAllMonitoring**\()
 
+Llama a :ref:`StopMonitoringNode <client-function-stopmonitoringnode>` para cada elemento de :ref:`MonitoredItems <client-property-monitoreditems>`.
 
 .. raw:: html
     
@@ -437,7 +578,16 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-`UA_DataType`_ * **GetNodeDataType**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace) |fconst|
+`UA_DataType`_ * **GetNodeDataType**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace) |fconst|
+
+Obtiene el `UA_DataType`_ de un nodo a partir de su nombre.
+
+* NodeIdString: El nombre del nodo en el servidor
+* Namespace: El namespace en el que se encuentra el nodo en el servidor
+
+La función solo se ejecuta si existe una conexión con un servidor. 
+
+Devuelve el `UA_DataType`_ del nodo si existe un nodo con ese nombre, o ``nullptr`` si falla.
 
 
 .. raw:: html
@@ -451,6 +601,12 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 `UA_NodeId`_ **GetNodeId**\(|vconst| `FString`_ & NodeIdString, |int32| Namespace) |fconst|
 
+Crea y devuelve un `UA_NodeId`_ a partir del nombre del nodo
+
+* NodeIdString: El nombre del nodo en el servidor
+* Namespace: El namespace en el que se encuentra el nodo en el servidor
+
+Si no existe :ref:`Client <client-property-client>` la función devuelve ``UA_NODEID_NULL``
 
 .. raw:: html
     
@@ -461,8 +617,28 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 .. rst-class:: classref-method
 
-|void| **DataChangeNotificationCallback**\(`UA_Client`_ * client, `UA_UInt32`_ subId, |vvoid| subContext, `UA_UInt32`_ monId, |vvoid| monContext, `UA_DataValue`_ * value) |static| |cdecl|
+|void| **DataChangeNotificationCallback**\(`UA_Client`_\* client, `UA_UInt32`_ subId, |vvoid| subContext, `UA_UInt32`_ monId, |vvoid| monContext, `UA_DataValue`_\* value) |static| |cdecl|
 
+Función interna. Es llamada automáticamente al recibir un cambio de valor de un nodo monitorizado.
+
+* Client: El cliente conectado al servidor.:ref:`Client <client-property-client>`
+* subId: Id de suscripción. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.:ref:`SubscriptionId <fmonitoreditem-property-subscriptionid>`
+* subContext: Contexto de la suscripción. Debe ser un :ref:`AOPCUAClient <doc_class_opcuaclient>` ``this`` en c++, ``self`` en Blueprints llamando desde un actor :ref:`AOPCUAClient <doc_class_opcuaclient>`. 
+* monId: Id de la monitorización. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.:ref:`MonitoredItemId <fmonitoreditem-property-monitoreditemid>`
+* monContext: Contexto de la monitorización. No se usa actualmente, puede ser ``NULL``
+* value: Puntero a la variable que se actualizará cuando se lance la función.
+
+La función solo se ejecuta si se ha pasado un contexto de subscripción válido, de clase :ref:`AOPCUAClient <doc_class_opcuaclient>`,
+y el puntero de ``value`` no es nulo.
+
+Al ejecutarse la función, intenta hacer cast a la variable al mismo tipo que el nodo del servidor, y establece su valor al nuevo valor del nodo.
+
+.. note::
+    Si el tipo de la variable no coincide con el tipo del nodo del servidor, la escritura fallará.
+    Nótese que en Blueprints las variables de tipo ``float`` son de doble precisión, es decir, el nodo del servidor
+    ha de ser de tipo ``double`` o equivalente para poder comunicarse.
+
+Tras actualizar la variable, lanza el delegate de :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.:ref:`Callback <fmonitoreditem-property-callback>`.
 
 .. raw:: html
     
@@ -474,6 +650,9 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 |void| **ProcessClientEvents**\()
 
+La función solo se ejecuta si :ref:`Client <client-property-client>` está definido.
+
+Llama a `UA_client_run_iterate`_ para asegurar que los eventos asíncronos y otras tareas de la librería se ejecutan. Mantiene la conexión con el servidor estable.
 
 
 .. _AActor: https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/AActor
@@ -487,6 +666,7 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 .. _UA_Client: https://open62541.org/doc/master/client.html
 .. _UA_UInt32: https://open62541.org/doc/master/types.html#uint32
 .. _UA_DataValue: https://open62541.org/doc/master/types.html#datavalue
+.. _UA_Client_run_iterate: https://open62541.org/doc/master/client.html#client
 .. _TMap: https://dev.epicgames.com/documentation/en-us/unreal-engine/map-containers-in-unreal-engine
 
 .. |void| replace::  :abbr:`void (Sin valor de retorno)`
