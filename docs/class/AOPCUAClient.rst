@@ -626,12 +626,14 @@ Función interna. Es llamada automáticamente al recibir un cambio de valor de u
 * subContext: Contexto de la suscripción. Debe ser un :ref:`AOPCUAClient <doc_class_opcuaclient>` ``this`` en c++, ``self`` en Blueprints llamando desde un actor :ref:`AOPCUAClient <doc_class_opcuaclient>`. 
 * monId: Id de la monitorización. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.\ :ref:`MonitoredItemId <fmonitoreditem-property-monitoreditemid>`
 * monContext: Contexto de la monitorización. No se usa actualmente, puede ser ``NULL``
-* value: Puntero a la variable que se actualizará cuando se lance la función.
+* value: El nuevo valor que retorna el nodo del servidor.
 
 La función solo se ejecuta si se ha pasado un contexto de subscripción válido, de clase :ref:`AOPCUAClient <doc_class_opcuaclient>`,
 y el puntero de ``value`` no es nulo.
 
-Al ejecutarse la función, intenta hacer cast a la variable al mismo tipo que el nodo del servidor, y establece su valor al nuevo valor del nodo.
+Busca un elemento en :ref:`MonitoredItems <client-property-monitoreditems>` cuyas id de subscripción y monitorización coincidan con ``subId`` y ``monId`` respectivamente.
+Si existe, intenta hacer cast a la variable :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.\ :ref:`VarRef <fmonitoreditem-property-varref>` al mismo tipo que el nodo del servidor,
+ y establece su valor al nuevo recibido en ``value``.
 
 .. note::
     Si el tipo de la variable no coincide con el tipo del nodo del servidor, la escritura fallará.
