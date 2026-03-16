@@ -621,7 +621,7 @@ Si no existe :ref:`Client <client-property-client>` la función devuelve ``UA_NO
 
 Función interna. Es llamada automáticamente al recibir un cambio de valor de un nodo monitorizado.
 
-* Client: El cliente conectado al servidor.:ref:`Client <client-property-client>`
+* Client: El cliente conectado al servidor. :ref:`Client <client-property-client>`
 * subId: Id de suscripción. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.\ :ref:`SubscriptionId <fmonitoreditem-property-subscriptionid>`
 * subContext: Contexto de la suscripción. Debe ser un :ref:`AOPCUAClient <doc_class_opcuaclient>` ``this`` en c++, ``self`` en Blueprints llamando desde un actor :ref:`AOPCUAClient <doc_class_opcuaclient>`. 
 * monId: Id de la monitorización. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.\ :ref:`MonitoredItemId <fmonitoreditem-property-monitoreditemid>`
