@@ -114,7 +114,7 @@ Dynamic **FOPCUAOnValueChanged**
 Delegate dinámico simple.
 
 Ejecuta el evento vinculado cada vez que recibe un cambio de valor de un nodo monitorizado.
-Ver :ref:`DataChangeNotificationCallback <client-function-datachangenotificationcallback>` para más detalles.
+Ver :ref:`DataChangeNotificationCallback <client-function-datachangenotificationcallback>`\() para más detalles.
 
 
 .. raw:: html
@@ -150,7 +150,7 @@ Devuelve si el cliente está conectado a un servidor o no.
 
 Puntero al cliente de `open62541`_.
 
-Se inicializa al conectar a un servidor con :ref:`ConnectAnon <client-function-connectanon>` o :ref:`ConnectUser <client-function-connectuser>`, y se destruye al desconectarse con :ref:`Disconnect <client-function-disconnect>`.
+Se inicializa al conectar a un servidor con :ref:`ConnectAnon <client-function-connectanon>`\() o :ref:`ConnectUser <client-function-connectuser>`\(), y se destruye al desconectarse con :ref:`Disconnect <client-function-disconnect>`.
 
 .. raw:: html
     
@@ -219,7 +219,7 @@ Simplemente llama al ``Super::BeginPlay()``.
 
 Función llamada al finalizar el juego o al destruir el actor.
 
-Llama a :ref:`Disconnect <client-function-disconnect>` para asegurarse de que el cliente se desconecta del servidor, y se eliminan las suscripciones.
+Llama a :ref:`Disconnect <client-function-disconnect>`\() para asegurarse de que el cliente se desconecta del servidor, y se eliminan las suscripciones.
 Luego llama al ``Super::EndPlay(EndPlayReason)``.
 
 .. raw:: html
@@ -237,7 +237,7 @@ Función llamada cada frame.
 
 Llama al ``Super::Tick(DeltaTime)``. 
 
-Si :ref:`IsConnected <client-function-isconnected>` devuelve ``true``, es decir, si el cliente está conectado a un servidor, entonces ejecuta :ref:`ProcessClientEvents <client-function-processclintevents>`.
+Si :ref:`IsConnected <client-function-isconnected>`\() devuelve ``true``, es decir, si el cliente está conectado a un servidor, entonces ejecuta :ref:`ProcessClientEvents <client-function-processclintevents>`.
 
 .. raw:: html
     
@@ -300,7 +300,7 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 Desconecta el cliente del servidor.
 
-Llama a :ref:`StopAllMonitoring <client-function-stopallmonitoring>` para eliminar las posibles suscripciones,
+Llama a :ref:`StopAllMonitoring <client-function-stopallmonitoring>`\() para eliminar las posibles suscripciones,
 y se desconecta del servidor en caso de :ref:`Client <client-property-client>` estuviera definido.
 
 Establece :ref:`Client <client-property-client>` a ``null`` y :ref:`bIsConnected <client-property-isconnected>` a ``false``.
@@ -332,13 +332,13 @@ Devuelve ``true`` si :ref:`Client <client-property-client>` está definido, y :r
 
 |bool| **ReadNodeValue**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |int32| & OutValue)
 
-Definición para blueprints de :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`
+Definición para blueprints de :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`\().
 
 .. important::
-    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execReadNodeValue <client-function-execreadnodevalue>`,
-    que cambia el tipo de OutValue y pasa los valores a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`.
+    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execReadNodeValue <client-function-execreadnodevalue>`\(),
+    que cambia el tipo de OutValue y pasa los valores a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`\().
 
-    En c++ llamar directamente a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>` con los parámetros necesarios.
+    En c++ llamar directamente a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`\() con los parámetros necesarios.
 
 
 .. raw:: html
@@ -352,14 +352,14 @@ Definición para blueprints de :ref:`ReadNodeValueInternal <client-function-read
 
 **execReadNodeValue**\()
 
-Ejecución interna de :ref:`ReadNodeValue <client-function-readnodevalue>`
+Ejecución interna de :ref:`ReadNodeValue <client-function-readnodevalue>`\().
 
 .. important::
-    La función se ejecuta directamente al llamar a :ref:`ReadNodeValue <client-function-readnodevalue>` desde Blueprints.
-    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`
+    La función se ejecuta directamente al llamar a :ref:`ReadNodeValue <client-function-readnodevalue>`\() desde Blueprints.
+    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`\().
 
 Revisa el stack para obtener la dirección de memoria de ``OutValue``, y su `FProperty`_, y se los pasa junto al resto de parámetros a
-:ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`
+:ref:`ReadNodeValueInternal <client-function-readnodevalueinternal>`\().
 
 
 .. raw:: html
@@ -402,13 +402,13 @@ Devuelve ``true`` si se ha conseguido leer el nodo y ``OutValue`` retorna un val
 
 |bool| **WriteNodeValue**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |int32| InValue)
 
-Definición para blueprints de :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`
+Definición para blueprints de :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`\()
 
 .. important::
-    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execWriteNodeValue <client-function-execwritenodevalue>`,
-    que cambia el tipo de InValue y pasa los valores a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`.
+    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execWriteNodeValue <client-function-execwritenodevalue>`\(),
+    que cambia el tipo de InValue y pasa los valores a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`\().
 
-    En c++ llamar directamente a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>` con los parámetros necesarios.
+    En c++ llamar directamente a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`\() con los parámetros necesarios.
 
 
 .. raw:: html
@@ -422,14 +422,14 @@ Definición para blueprints de :ref:`WriteNodeValueInternal <client-function-wri
 
 **execWriteNodeValue**\()
 
-Ejecución interna de :ref:`WriteNodeValue <client-function-writenodevalue>`
+Ejecución interna de :ref:`WriteNodeValue <client-function-writenodevalue>`\().
 
 .. important::
-    La función se ejecuta directamente al llamar a :ref:`WriteNodeValue <client-function-writenodevalue>` desde Blueprints.
-    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`
+    La función se ejecuta directamente al llamar a :ref:`WriteNodeValue <client-function-writenodevalue>`\() desde Blueprints.
+    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`\().
 
 Revisa el stack para obtener la dirección de memoria de ``InValue``, y su `FProperty`_, y se los pasa junto al resto de parámetros a
-:ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`
+:ref:`WriteNodeValueInternal <client-function-writenodevalueinternal>`\().
 
 
 .. raw:: html
@@ -473,13 +473,13 @@ Devuelve ``true`` si se ha escrito correctamente, o ``false`` si ocurre un error
 
 |bool| **StartMonitoringNode**\(|vconst| `FString`_\& NodeIdString, |int32| Namespace, |float| SamplingInterval, |int32|\& VariableToUpdate, :ref:`FOPCUAOnValueChanged <client-delegate-fopcuaonvaluechanged>` Callback)
 
-Definición para blueprints de :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`
+Definición para blueprints de :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`\()
 
 .. important::
-    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execStartMonitoringNode <client-function-execstartmonitoringnode>`,
-    que cambia el tipo de VariableToUpdate y pasa los valores a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`.
+    No se debe llamar a esta función directamente. En Blueprints, se ejecuta :ref:`execStartMonitoringNode <client-function-execstartmonitoringnode>`\(),
+    que cambia el tipo de VariableToUpdate y pasa los valores a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`\().
 
-    En c++ llamar directamente a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>` con los parámetros necesarios.
+    En c++ llamar directamente a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`\() con los parámetros necesarios.
 
 
 
@@ -494,14 +494,14 @@ Definición para blueprints de :ref:`StartMonitoringNodeInternal <client-functio
 
 **execStartMonitoringNode**\()
 
-Ejecución interna de :ref:`StartMonitoringNode <client-function-startmonitoringnode>`
+Ejecución interna de :ref:`StartMonitoringNode <client-function-startmonitoringnode>`\().
 
 .. important::
-    La función se ejecuta directamente al llamar a :ref:`StartMonitoringNode <client-function-startmonitoringnode>` desde Blueprints.
-    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`.
+    La función se ejecuta directamente al llamar a :ref:`StartMonitoringNode <client-function-startmonitoringnode>`\() desde Blueprints.
+    Llamar a la función desde c++ puede dar resultados inesperados. Se recomienda llamar a :ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`\().
 
 Revisa el stack para obtener la dirección de memoria de ``VariableToUpdate``, y su `FProperty`_, y se los pasa junto al resto de parámetros a
-:ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`.
+:ref:`StartMonitoringNodeInternal <client-function-startmonitoringnodeinternal>`\().
 
 .. raw:: html
     
@@ -527,7 +527,7 @@ La función solo se ejecuta si existe una conexión con un servidor.
 
 Si ya se está monitorizando el nodo, la función devuelve ``false`` con un mensaje indicativo.
 
-Crea una suscripción y comienza la monitorización del nodo. Se pasa la función :ref:`DataChangeNotificationCallback <client-function-datachangenotificationcallback>` al crear la monitorización,
+Crea una suscripción y comienza la monitorización del nodo. Se pasa la función :ref:`DataChangeNotificationCallback <client-function-datachangenotificationcallback>`\() al crear la monitorización,
 que se ejecuta cada vez que se recibe un cambio del servidor.
 Almacena la referencia a la monitorización en :ref:`MonitoredItems <client-property-monitoreditems>`
 
@@ -567,7 +567,7 @@ Devuelve ``true`` si se ha terminado la monitorización correctamente, o ``false
 
 |void| **StopAllMonitoring**\()
 
-Llama a :ref:`StopMonitoringNode <client-function-stopmonitoringnode>` para cada elemento de :ref:`MonitoredItems <client-property-monitoreditems>`.
+Llama a :ref:`StopMonitoringNode <client-function-stopmonitoringnode>`\() para cada elemento de :ref:`MonitoredItems <client-property-monitoreditems>`.
 
 .. raw:: html
     
@@ -622,9 +622,9 @@ Si no existe :ref:`Client <client-property-client>` la función devuelve ``UA_NO
 Función interna. Es llamada automáticamente al recibir un cambio de valor de un nodo monitorizado.
 
 * Client: El cliente conectado al servidor.:ref:`Client <client-property-client>`
-* subId: Id de suscripción. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.:ref:`SubscriptionId <fmonitoreditem-property-subscriptionid>`
+* subId: Id de suscripción. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.\ :ref:`SubscriptionId <fmonitoreditem-property-subscriptionid>`
 * subContext: Contexto de la suscripción. Debe ser un :ref:`AOPCUAClient <doc_class_opcuaclient>` ``this`` en c++, ``self`` en Blueprints llamando desde un actor :ref:`AOPCUAClient <doc_class_opcuaclient>`. 
-* monId: Id de la monitorización. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.:ref:`MonitoredItemId <fmonitoreditem-property-monitoreditemid>`
+* monId: Id de la monitorización. :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.\ :ref:`MonitoredItemId <fmonitoreditem-property-monitoreditemid>`
 * monContext: Contexto de la monitorización. No se usa actualmente, puede ser ``NULL``
 * value: Puntero a la variable que se actualizará cuando se lance la función.
 
@@ -638,7 +638,7 @@ Al ejecutarse la función, intenta hacer cast a la variable al mismo tipo que el
     Nótese que en Blueprints las variables de tipo ``float`` son de doble precisión, es decir, el nodo del servidor
     ha de ser de tipo ``double`` o equivalente para poder comunicarse.
 
-Tras actualizar la variable, lanza el delegate de :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.:ref:`Callback <fmonitoreditem-property-callback>`.
+Tras actualizar la variable, lanza el delegate de :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.\ :ref:`Callback <fmonitoreditem-property-callback>`.
 
 .. raw:: html
     
