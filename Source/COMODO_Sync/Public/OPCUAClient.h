@@ -2,7 +2,6 @@
 
 #include "GameFramework/Actor.h"
 #include "open62541.h"
-// #include "OPCUATypes.h"
 #include "OPCUAClient.generated.h"
 
 DECLARE_DYNAMIC_DELEGATE(FOPCUAOnValueChanged);

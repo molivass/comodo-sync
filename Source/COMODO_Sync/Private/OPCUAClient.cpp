@@ -2,8 +2,6 @@
 #include <string>
 #include "Async/Async.h"
 
-//#include "Net/Core/PushModel/PushModel.h"
-
 AOPCUAClient::AOPCUAClient() {
 	PrimaryActorTick.bCanEverTick = true;
 	bIsConnected = false;
@@ -47,7 +45,6 @@ bool AOPCUAClient::ConnectAnon(const FString URL) {
 	}
 
 	bIsConnected = true;
-	// ServerURL = URL;
 	UE_LOG(LogTemp, Log, TEXT("Successfully connected to server"));
 	return true;
 }
@@ -140,9 +137,7 @@ bool AOPCUAClient::ReadNodeValueInternal(const FString& NodeIdString, int32 Name
     UA_StatusCode readStatus = UA_Client_readValueAttribute(Client, NodeId, &value);
     
     bool bSuccess = false;
-	// int ErrCode = 0;
     
-	// && UA_Variant_hasScalarType(&value, &UA_TYPES[UA_TYPES_VARIANT])
     if (readStatus == UA_STATUSCODE_GOOD) {
         if (value.type == &UA_TYPES[UA_TYPES_BOOLEAN]) {
         	if (OutputProperty->IsA<FBoolProperty>()) {
@@ -176,7 +171,7 @@ bool AOPCUAClient::ReadNodeValueInternal(const FString& NodeIdString, int32 Name
         	}
         } else if (value.type == &UA_TYPES[UA_TYPES_UINT32]) {
         	if (OutputProperty->IsA<FIntProperty>()) {
-        		*static_cast<int32*>(OutValue) = *(UA_UInt16*)value.data;
+        		*static_cast<int32*>(OutValue) = *(UA_UInt32*)value.data;
         		bSuccess = true;
         	}
         } else if (value.type == &UA_TYPES[UA_TYPES_INT64]) {
@@ -281,17 +276,9 @@ bool AOPCUAClient::WriteNodeValueInternal(const FString& NodeIdString, int32 Nam
 	}
 	
 	bool bSuccess = false;
-	// bool typeMismatch = false;
-	
-	// std::string NodeIdStd = TCHAR_TO_UTF8(*NodeIdString);
+
 	UA_NodeId NodeId = GetNodeId(NodeIdString, Namespace);
 	
-	
-	// UA_NodeId dataTypeAttributeId = UA_NODEID_NULL;
-	// UA_StatusCode TypeFoundStatus = UA_Client_readDataTypeAttribute(client, NodeId, &dataTypeAttributeId);
-	// const UA_DataType* NodeType = UA_Client_findDataType(client, &dataTypeAttributeId);
-	
-	// UE_LOG(LogTemp, Warning, TEXT("Node Type: %hs"), NodeType->typeName);
 	UA_Variant value;
 	UA_Variant_init(&value);
 	
@@ -332,18 +319,6 @@ bool AOPCUAClient::WriteNodeValueInternal(const FString& NodeIdString, int32 Nam
                 *NodeIdString, UTF8_TO_TCHAR(UA_StatusCode_name(writeStatus)));
         }
 	}
-	
-	// if (!typeMismatch) {
-	// 	UA_StatusCode writeStatus = UA_Client_writeValueAttribute(client, NodeId, &value);
-	// 	// UE_LOG(LogTemp, Warning, TEXT("writeStatus: %s"), UTF8_TO_TCHAR(UA_StatusCode_name(writeStatus)));
-	// 	if (writeStatus == UA_STATUSCODE_GOOD) bSuccess = true;
-	// 	UA_StatusCode_clear(&writeStatus);
-	// } else {
-	// 	UE_LOG(LogTemp, Error, TEXT("Type mismatch for node: %s. UA Type: %s, Expected Unreal Type: %s"), 
-	// 		*NodeIdString, 
-	// 		UTF8_TO_TCHAR(NodeType->typeName), 
-	// 		*InputProperty->GetClass()->GetName());
-	// }
 	
 	UA_Variant_clear(&value);
 	UA_NodeId_clear(&NodeId);
@@ -480,38 +455,26 @@ void AOPCUAClient::DataChangeNotificationCallback(UA_Client* ua_client, UA_UInt3
     
 	AOPCUAClient* This = static_cast<AOPCUAClient*>(subContext);
 	if (!This) return;
-    
-	// UClass* Class = This->GetClass();
-	// if (!Class) return;
-	// if (value->value.type == &UA_TYPES[UA_TYPES_BOOLEAN]) {
-	// 	This->ServerUpdateBool(subId, monId, *(UA_Boolean*)value->value.data);
-	// }
 	
 	for (auto& ItemPair : This->MonitoredItems) {
 		if (ItemPair.Value.SubscriptionId == subId && ItemPair.Value.MonitoredItemId == monId) {
-			// void* Data = value->value.data;
-			
 			if (ItemPair.Value.DataType == &UA_TYPES[UA_TYPES_BOOLEAN]) {
 				bool* OutPtr = static_cast<bool*>(ItemPair.Value.VarRef);
 				bool Value = *(UA_Boolean*)value->value.data;
 				*OutPtr = Value;
-				// *static_cast<bool*>(Data) = Value;
 			} else if (ItemPair.Value.DataType == &UA_TYPES[UA_TYPES_DOUBLE]) {
 				double* OutPtr = static_cast<double*>(ItemPair.Value.VarRef);
 				double Value = *(UA_Double*)value->value.data;
 				*OutPtr = Value;
-				// *static_cast<double*>(Data) = Value;
 			} else if (ItemPair.Value.DataType == &UA_TYPES[UA_TYPES_INT32]) {
 				int32* OutPtr = static_cast<int32*>(ItemPair.Value.VarRef);
 				int32 Value = *(UA_Int32*)value->value.data;
 				*OutPtr = Value;
-				// *static_cast<int32*>(Data) = Value;
 			} else if (ItemPair.Value.DataType == &UA_TYPES[UA_TYPES_STRING]) {
 				FString* OutPtr = static_cast<FString*>(ItemPair.Value.VarRef);
 				UA_String* stringVal = (UA_String*)value->value.data;
 				*OutPtr = FString(UTF8_TO_TCHAR(reinterpret_cast<const char*>(stringVal->data)));
 			}
-			
 			
 			ItemPair.Value.Callback.ExecuteIfBound();
 			break;
