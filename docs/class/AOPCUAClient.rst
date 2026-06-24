@@ -633,7 +633,7 @@ y el puntero de ``value`` no es nulo.
 
 Busca un elemento en :ref:`MonitoredItems <client-property-monitoreditems>` cuyas id de subscripción y monitorización coincidan con ``subId`` y ``monId`` respectivamente.
 Si existe, intenta hacer cast a la variable :ref:`FMonitoredItem <doc_struct_fmonitoreditem>`\.\ :ref:`VarRef <fmonitoreditem-property-varref>` al mismo tipo que el nodo del servidor,
- y establece su valor al nuevo recibido en ``value``.
+y establece su valor al nuevo recibido en ``value``.
 
 .. note::
     Si el tipo de la variable no coincide con el tipo del nodo del servidor, la escritura fallará.
