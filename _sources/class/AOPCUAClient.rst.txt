@@ -274,8 +274,6 @@ Devuelve ``true`` si la conexión se establece correctamente, o ``false`` si ocu
 
 Conecta a un servidor OPC UA con usuario y contraseña.
 
-.. error::
-    Actualmente no funciona y siempre retornará false
 
 * URL: Es la dirección del servidor, en el formato ``opc.tcp://IP:PUERTO``. Por ejemplo, ``opc.tcp://192.168.1.100:4840``.
 * Username: El nombre de usuario definido en el servidor
